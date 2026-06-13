@@ -13,7 +13,7 @@
 }
 
 body{
-    overflow:hidden;
+    overflow:auto;
     height:100vh;
     background:linear-gradient(135deg,#ff6b81,#ff9ff3,#70a1ff);
     display:flex;
@@ -43,13 +43,20 @@ body{
 }
 
 .card{
-    width:90%;
-    max-width:700px;
-    background:rgba(255,255,255,0.15);
+    width:95%;
+    max-width:420px;
+
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    background:rgba(255,255,255,.15);
+
     backdrop-filter:blur(15px);
+
     border-radius:25px;
-    padding:40px;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
+
+    padding:25px;
 }
 
 h1{
@@ -161,12 +168,7 @@ canvas{
         </div>
     </div>
 
-    <div class="card hidden" id="card">
-
-        <h1>🎂 生日快乐 🎂</h1>
-
-        <div class="message" id="message"></div>
-		<div class="card hidden" id="card">
+<div class="card hidden" id="card">
 
     <h1>🎂 生日快乐 🎂</h1>
 
