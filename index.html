@@ -115,6 +115,16 @@ canvas{
     <source src="birthday.mp3" type="audio/mpeg">
 </audio>
 
+<div class="photo-slider">
+
+    <button onclick="prevPhoto()">◀</button>
+
+    <img id="slider" src="./images/1.jpg">
+
+    <button onclick="nextPhoto()">▶</button>
+
+</div>
+
 <script>
 
 const gift=document.getElementById("gift");
@@ -271,6 +281,24 @@ function animate(){
 }
 
 animate();
+
+function nextPhoto(){
+
+    current = (current + 1) % photos.length;
+
+    slider.src = photos[current];
+}
+
+function prevPhoto(){
+
+    current--;
+
+    if(current < 0){
+        current = photos.length - 1;
+    }
+
+    slider.src = photos[current];
+}
 
 </script>
 
