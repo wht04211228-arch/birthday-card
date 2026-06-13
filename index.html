@@ -85,6 +85,51 @@ canvas{
         transform:translateY(110vh);
     }
 }
+
+.photo-slider{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+
+    width:300px;
+    height:400px;
+
+    border-radius:20px;
+    overflow:hidden;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.3);
+
+    z-index:999;
+}
+
+.photo-slider img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.photo-slider button{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+
+    border:none;
+    background:rgba(255,255,255,.7);
+
+    width:40px;
+    height:40px;
+
+    cursor:pointer;
+    z-index:10;
+}
+
+.photo-slider button:first-child{
+    left:10px;
+}
+
+.photo-slider button:last-child{
+    right:10px;
+}
 </style>
 </head>
 
@@ -281,6 +326,29 @@ function animate(){
 }
 
 animate();
+
+const photos = [
+    "./images/1.jpg",
+    "./images/2.jpg",
+    "./images/3.jpg",
+    "./images/4.jpg"
+];
+
+let current = 0;
+
+const slider = document.getElementById("slider");
+
+setInterval(() => {
+
+    current++;
+
+    if(current >= photos.length){
+        current = 0;
+    }
+
+    slider.src = photos[current];
+
+},3000);
 
 function nextPhoto(){
 
