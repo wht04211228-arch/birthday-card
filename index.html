@@ -87,40 +87,54 @@ canvas{
 }
 
 .photo-slider{
-    position:fixed;
-    bottom:20px;
-    right:20px;
 
-    width:300px;
-    height:400px;
+    width:90%;
+
+    max-width:350px;
+
+    margin:30px auto;
 
     border-radius:20px;
+
     overflow:hidden;
 
     box-shadow:0 10px 30px rgba(0,0,0,.3);
 
-    z-index:999;
+    position:relative;
 }
 
 .photo-slider img{
+
     width:100%;
-    height:100%;
+
+    height:300px;
+
     object-fit:cover;
+
+    display:block;
 }
 
 .photo-slider button{
+
     position:absolute;
+
     top:50%;
+
     transform:translateY(-50%);
 
-    border:none;
-    background:rgba(255,255,255,.7);
-
     width:40px;
+
     height:40px;
 
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.8);
+
     cursor:pointer;
-    z-index:10;
+
+    font-size:18px;
 }
 
 .photo-slider button:first-child{
@@ -130,6 +144,7 @@ canvas{
 .photo-slider button:last-child{
     right:10px;
 }
+
 </style>
 </head>
 
@@ -151,6 +166,23 @@ canvas{
         <h1>🎂 生日快乐 🎂</h1>
 
         <div class="message" id="message"></div>
+		<div class="card hidden" id="card">
+
+    <h1>🎂 生日快乐 🎂</h1>
+
+    <div class="message" id="message"></div>
+
+    <div class="photo-slider">
+
+        <button onclick="prevPhoto()">◀</button>
+
+        <img id="slider" src="./images/1.jpg">
+
+        <button onclick="nextPhoto()">▶</button>
+
+    </div>
+
+</div>
 
     </div>
 
@@ -160,15 +192,6 @@ canvas{
     <source src="birthday.mp3" type="audio/mpeg">
 </audio>
 
-<div class="photo-slider">
-
-    <button onclick="prevPhoto()">◀</button>
-
-    <img id="slider" src="./images/1.jpg">
-
-    <button onclick="nextPhoto()">▶</button>
-
-</div>
 
 <script>
 
