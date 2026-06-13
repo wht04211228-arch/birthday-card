@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生日快乐 🎂</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    height:100vh;
+    background:linear-gradient(135deg,#ff6b81,#ff9ff3,#70a1ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:"Microsoft YaHei";
+}
+
+.container{
+    text-align:center;
+    color:white;
+}
+
+.gift{
+    font-size:120px;
+    cursor:pointer;
+    animation:float 2s infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-20px);}
+}
+
+.hidden{
+    display:none;
+}
+
+.card{
+    width:90%;
+    max-width:700px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    padding:40px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+h1{
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+.message{
+    font-size:24px;
+    line-height:1.8;
+    min-height:150px;
+}
+
+canvas{
+    position:fixed;
+    left:0;
+    top:0;
+    pointer-events:none;
+}
+
+.heart{
+    position:fixed;
+    color:#fff;
+    font-size:24px;
+    animation:fall 6s linear infinite;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-100px);
+    }
+    to{
+        transform:translateY(110vh);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="container">
+
+    <div class="gift" id="gift">
+        🎁
+        <div style="font-size:28px">
+            点击打开生日礼物
+        </div>
+    </div>
+
+    <div class="card hidden" id="card">
+
+        <h1>🎂 生日快乐 🎂</h1>
+
+        <div class="message" id="message"></div>
+
+    </div>
+
+</div>
+
+<audio id="music" loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const gift=document.getElementById("gift");
+const card=document.getElementById("card");
+const message=document.getElementById("message");
+const music=document.getElementById("music");
+
+const text=`亲爱的朋友：
+
+今天是属于你的特别日子。
+
+愿你的每一天都充满阳光，
+愿所有努力都有收获，
+愿所有期待都能实现。
+
+生日快乐！
+愿未来一路繁花相伴。❤️`;
+
+gift.onclick=()=>{
+
+    gift.style.display="none";
+
+    card.classList.remove("hidden");
+
+    music.play().catch(()=>{});
+
+    typeWriter();
+
+    launchFireworks();
+
+    createHearts();
+};
+
+function typeWriter(){
+
+    let i=0;
+
+    function typing(){
+
+        if(i<text.length){
+
+            message.innerHTML+=text.charAt(i);
+
+            i++;
+
+            setTimeout(typing,80);
+
+        }
+    }
+
+    typing();
+}
+
+function createHearts(){
+
+    setInterval(()=>{
+
+        const heart=document.createElement("div");
+
+        heart.className="heart";
+
+        heart.innerHTML="❤️";
+
+        heart.style.left=Math.random()*100+"vw";
+
+        heart.style.fontSize=
+            Math.random()*30+20+"px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+
+            heart.remove();
+
+        },6000);
+
+    },300);
+}
+
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+function launchFireworks(){
+
+    setInterval(()=>{
+
+        let x=Math.random()*canvas.width;
+        let y=Math.random()*canvas.height/2;
+
+        for(let i=0;i<80;i++){
+
+            particles.push({
+
+                x:x,
+                y:y,
+
+                dx:(Math.random()-0.5)*8,
+                dy:(Math.random()-0.5)*8,
+
+                life:100,
+
+                color:
+                `hsl(${Math.random()*360},
+                100%,60%)`
+            });
+        }
+
+    },600);
+}
+
+function animate(){
+
+    requestAnimationFrame(animate);
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    particles.forEach((p,index)=>{
+
+        p.x+=p.dx;
+
+        p.y+=p.dy;
+
+        p.life--;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            3,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fillStyle=p.color;
+
+        ctx.fill();
+
+        if(p.life<=0){
+
+            particles.splice(index,1);
+        }
+    });
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
