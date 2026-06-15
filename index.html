@@ -1,413 +1,101 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ysz要天天开心哦 🎂</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    overflow:auto;
-    height:100vh;
-    background:linear-gradient(135deg,#ff6b81,#ff9ff3,#70a1ff);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:"Microsoft YaHei";
-}
-
-.container{
-    text-align:center;
-    color:white;
-}
-
-.gift{
-    font-size:120px;
-    cursor:pointer;
-    animation:float 2s infinite;
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-20px);}
-}
-
-.hidden{
-    display:none;
-}
-
-.card{
-    width:95%;
-    max-width:420px;
-
-    max-height:90vh;
-
-    overflow-y:auto;
-
-    background:rgba(255,255,255,.15);
-
-    backdrop-filter:blur(15px);
-
-    border-radius:25px;
-
-    padding:25px;
-}
-
-h1{
-    font-size:50px;
-    margin-bottom:20px;
-}
-
-.message{
-    font-size:24px;
-    line-height:1.8;
-    min-height:150px;
-}
-
-canvas{
-    position:fixed;
-    left:0;
-    top:0;
-    pointer-events:none;
-}
-
-.heart{
-    position:fixed;
-    color:#fff;
-    font-size:24px;
-    animation:fall 6s linear infinite;
-}
-
-@keyframes fall{
-    from{
-        transform:translateY(-100px);
-    }
-    to{
-        transform:translateY(110vh);
-    }
-}
-
-.photo-slider{
-
-    width:90%;
-
-    max-width:350px;
-
-    margin:30px auto;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.3);
-
-    position:relative;
-}
-
-.photo-slider img{
-
-    width:100%;
-
-    height:300px;
-
-    object-fit:cover;
-
-    display:block;
-}
-
-.photo-slider button{
-
-    position:absolute;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:40px;
-
-    height:40px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:rgba(255,255,255,.8);
-
-    cursor:pointer;
-
-    font-size:18px;
-}
-
-.photo-slider button:first-child{
-    left:10px;
-}
-
-.photo-slider button:last-child{
-    right:10px;
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>心动生日电子贺卡｜商业定制版</title>
+  <meta name="description" content="高级动态交互电子生日贺卡，支持照片轮播、音乐、烟花、情书、祝福弹幕和专属分享。" />
+  <link rel="stylesheet" href="./style.css" />
 </head>
-
 <body>
+  <canvas id="starsCanvas"></canvas>
+  <canvas id="fireworksCanvas"></canvas>
 
-<canvas id="fireworks"></canvas>
+  <div class="audio-fab" id="audioBtn" title="播放音乐">
+    <span>♫</span>
+  </div>
+  <audio id="bgMusic" loop preload="metadata">
+    <source src="./assets/music.mp3" type="audio/mpeg" />
+  </audio>
 
-<div class="container">
+  <main class="page-shell">
+    <section class="hero glass">
+      <div class="badge">Premium Birthday Card · 2026</div>
+      <h1><span id="receiverName">亲爱的宝贝</span><br />生日快乐</h1>
+      <p class="subtitle">愿今天所有浪漫、好运和温柔，都奔向你。</p>
+      <div class="hero-actions">
+        <button class="btn primary" id="openLetterBtn">打开专属情书</button>
+        <button class="btn ghost" id="fireworkBtn">点亮烟花</button>
+      </div>
+      <div class="countdown-card">
+        <span>距离生日惊喜</span>
+        <strong id="countdownText">加载中...</strong>
+      </div>
+    </section>
 
-    <div class="gift" id="gift">
-        🎁
-        <div style="font-size:28px">
-            点击打开礼物
+    <section class="phone-stage">
+      <div class="phone-frame">
+        <div class="phone-top"></div>
+        <div class="photo-slider" id="photoSlider">
+          <div class="slide active" style="background-image:url('./assets/photo1.jpg')"></div>
+          <div class="slide" style="background-image:url('./assets/photo2.jpg')"></div>
+          <div class="slide" style="background-image:url('./assets/photo3.jpg')"></div>
         </div>
+        <div class="floating-love">❤</div>
+        <div class="wish-card">
+          <p>To <span id="receiverNameMini">宝贝</span></p>
+          <h2>你永远值得被认真偏爱</h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="feature glass">
+        <span>01</span>
+        <h3>专属姓名定制</h3>
+        <p>支持修改收件人、发件人、纪念日、祝福文案，适合直接接单。</p>
+      </article>
+      <article class="feature glass">
+        <span>02</span>
+        <h3>照片轮播展示</h3>
+        <p>支持情侣照、生日照、回忆相册，手机端浏览高级感更强。</p>
+      </article>
+      <article class="feature glass">
+        <span>03</span>
+        <h3>音乐与烟花互动</h3>
+        <p>用户点击播放音乐、点亮烟花，仪式感直接拉满。</p>
+      </article>
+    </section>
+
+    <section class="order-panel glass">
+      <div>
+        <p class="eyebrow">商业售卖入口</p>
+        <h2>定制你的专属生日网页</h2>
+        <p>提交姓名、照片、音乐和祝福文案，即可生成一个专属链接。</p>
+      </div>
+      <form id="orderForm">
+        <input id="nameInput" placeholder="收件人姓名，例如：小雨" />
+        <input id="fromInput" placeholder="发件人，例如：汉庭" />
+        <textarea id="messageInput" placeholder="写一句你想放进贺卡里的话"></textarea>
+        <button class="btn primary" type="submit">生成预览文案</button>
+      </form>
+      <div class="result" id="resultBox">填写后这里会生成客户预览文案。</div>
+    </section>
+  </main>
+
+  <div class="letter-modal" id="letterModal">
+    <div class="letter-card">
+      <button class="close" id="closeLetterBtn">×</button>
+      <p class="eyebrow">A Letter For You</p>
+      <h2>给 <span id="letterName">宝贝</span></h2>
+      <p id="letterText">
+        今天是你的生日，我想把所有温柔都写进这个网页里。愿你每一天都有热爱的事、期待的人、发光的自己。无论未来多远，我都希望你一直被爱包围。
+      </p>
+      <div class="signature">—— <span id="senderName">最爱你的人</span></div>
     </div>
+  </div>
 
-<div class="card hidden" id="card">
-
-    <h1>ysz要天天开心哦</h1>
-
-    <div class="message" id="message"></div>
-
-    <div class="photo-slider">
-
-        <button onclick="prevPhoto()">◀</button>
-
-        <img id="slider" src="./images/1.jpg">
-
-        <button onclick="nextPhoto()">▶</button>
-
-    </div>
-
-</div>
-
-    </div>
-
-</div>
-
-<audio id="music" loop>
-    <source src="birthday.mp3" type="audio/mpeg">
-</audio>
-
-
-<script>
-
-const gift=document.getElementById("gift");
-const card=document.getElementById("card");
-const message=document.getElementById("message");
-const music=document.getElementById("music");
-
-const text=`致：
-
-我希望你每天都开心。
-
-不是简单的一句祝福，而是我认真许下的心愿。
-
-我希望清晨的阳光透过窗户时，你是带着期待醒来的；希望路边盛开的花、傍晚温柔的晚霞、深夜闪烁的星光，都能让你感受到这个世界藏着的温柔。
-
-我希望你不会因为别人的眼光而否定自己，不会因为暂时的不顺而怀疑未来。因为你比自己想象中更加优秀，也比自己以为的更加值得被爱。
-
-希望你的生活里有鲜花、有惊喜、有热爱；有知己、有陪伴、有勇气；有奔赴山海的自由，也有回头时永远存在的依靠。
-
-如果未来会有风雨，我希望自己能够成为你的伞；如果未来会有黑夜，我希望自己能够成为你的灯；如果未来会有漫长岁月，我希望自己能够成为那个一直陪在你身边的人。
-
-我不求你永远没有烦恼，只希望每一次难过的时候，都有人抱抱你；每一次疲惫的时候，都有人心疼你；每一次回头的时候，都能看到我还站在那里。
-
-愿你岁岁平安，万事胜意；
-愿你被爱包围，永远明媚；
-愿你所遇皆良善，所求皆如愿；
-愿你每天都有重新爱上生活的勇气。
-
-更愿你此生幸福、平安、快乐。
-
-因为你开心，就是我最大的心愿。`;
-
-gift.onclick=()=>{
-
-    gift.style.display="none";
-
-    card.classList.remove("hidden");
-
-    music.play().catch(()=>{});
-
-    typeWriter();
-
-    launchFireworks();
-
-    createHearts();
-};
-
-function typeWriter(){
-
-    let i=0;
-
-    function typing(){
-
-        if(i<text.length){
-
-            message.innerHTML+=text.charAt(i);
-
-            i++;
-
-            setTimeout(typing,80);
-
-        }
-    }
-
-    typing();
-}
-
-function createHearts(){
-
-    setInterval(()=>{
-
-        const heart=document.createElement("div");
-
-        heart.className="heart";
-
-        heart.innerHTML="❤️";
-
-        heart.style.left=Math.random()*100+"vw";
-
-        heart.style.fontSize=
-            Math.random()*30+20+"px";
-
-        document.body.appendChild(heart);
-
-        setTimeout(()=>{
-
-            heart.remove();
-
-        },6000);
-
-    },300);
-}
-
-const canvas=document.getElementById("fireworks");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-
-function launchFireworks(){
-
-    setInterval(()=>{
-
-        let x=Math.random()*canvas.width;
-        let y=Math.random()*canvas.height/2;
-
-        for(let i=0;i<80;i++){
-
-            particles.push({
-
-                x:x,
-                y:y,
-
-                dx:(Math.random()-0.5)*8,
-                dy:(Math.random()-0.5)*8,
-
-                life:100,
-
-                color:
-                `hsl(${Math.random()*360},
-                100%,60%)`
-            });
-        }
-
-    },600);
-}
-
-function animate(){
-
-    requestAnimationFrame(animate);
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-    particles.forEach((p,index)=>{
-
-        p.x+=p.dx;
-
-        p.y+=p.dy;
-
-        p.life--;
-
-        ctx.beginPath();
-
-        ctx.arc(
-            p.x,
-            p.y,
-            3,
-            0,
-            Math.PI*2
-        );
-
-        ctx.fillStyle=p.color;
-
-        ctx.fill();
-
-        if(p.life<=0){
-
-            particles.splice(index,1);
-        }
-    });
-}
-
-animate();
-
-const photos = [
-    "./images/1.jpg",
-    "./images/2.jpg",
-    "./images/3.jpg",
-    "./images/4.jpg"
-];
-
-let current = 0;
-
-const slider = document.getElementById("slider");
-
-setInterval(() => {
-
-    current++;
-
-    if(current >= photos.length){
-        current = 0;
-    }
-
-    slider.src = photos[current];
-
-},3000);
-
-function nextPhoto(){
-
-    current = (current + 1) % photos.length;
-
-    slider.src = photos[current];
-}
-
-function prevPhoto(){
-
-    current--;
-
-    if(current < 0){
-        current = photos.length - 1;
-    }
-
-    slider.src = photos[current];
-}
-
-</script>
-
+  <script src="./config.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
