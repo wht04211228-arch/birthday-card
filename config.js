@@ -4,6 +4,9 @@ window.CARD_CONFIG = {
   senderName: '汉庭',
   birthday: '2026-12-28T00:00:00',
   subtitle: '愿今天所有浪漫、好运和温柔，都奔向你。',
+  voiceTitle: '汉庭的真人录音祝福',
+  voiceHint: '点击3D礼物盒，会自动播放 assets/voice.mp3 里的真人录音。',
+  giftText: '愿你的新一岁闪闪发光',
   letter: '小雨，生日快乐。遇见你之后，普通日子也像被加了滤镜。愿你永远自由、明亮、被认真偏爱。这个小小网页，是我把想念、祝福和心动偷偷打包送给你的礼物。',
   photos: ['./assets/photo1.jpg', './assets/photo2.jpg', './assets/photo3.jpg'],
   wishes: [
