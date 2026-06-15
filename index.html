@@ -3,68 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>心动生日电子贺卡｜商业定制版</title>
-  <meta name="description" content="高级动态交互电子生日贺卡，支持照片轮播、音乐、烟花、情书、祝福弹幕和专属分享。" />
+  <title>心动生日电子贺卡｜商业交互版</title>
+  <meta name="description" content="商业级动态交互电子生日贺卡，支持开场解锁、照片轮播、音乐、烟花、弹幕、心愿瓶、情书和分享。" />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <canvas id="starsCanvas"></canvas>
   <canvas id="fireworksCanvas"></canvas>
 
-  <div class="audio-fab" id="audioBtn" title="播放音乐">
-    <span>♫</span>
+  <div class="unlock-screen" id="unlockScreen">
+    <div class="unlock-card glass">
+      <div class="badge">Private Gift · Tap To Unlock</div>
+      <h1>有一份专属惊喜<br>正在等你打开</h1>
+      <p>建议戴上耳机，点击下方按钮开始仪式感。</p>
+      <button class="btn primary" id="unlockBtn">开启生日惊喜</button>
+    </div>
   </div>
-  <audio id="bgMusic" loop preload="metadata">
-    <source src="./assets/music.mp3" type="audio/mpeg" />
-  </audio>
 
-  <main class="page-shell">
+  <div class="toast" id="toast">已复制分享文案</div>
+
+  <div class="audio-fab" id="audioBtn" title="播放音乐"><span>♫</span></div>
+  <audio id="bgMusic" loop preload="metadata"><source src="./assets/music.mp3" type="audio/mpeg" /></audio>
+
+  <main class="page-shell" id="mainPage">
     <section class="hero glass">
-      <div class="badge">Premium Birthday Card · 2026</div>
+      <div class="badge">Premium Interactive Birthday Card · 2026</div>
       <h1><span id="receiverName">亲爱的宝贝</span><br />生日快乐</h1>
       <p class="subtitle">愿今天所有浪漫、好运和温柔，都奔向你。</p>
       <div class="hero-actions">
         <button class="btn primary" id="openLetterBtn">打开专属情书</button>
         <button class="btn ghost" id="fireworkBtn">点亮烟花</button>
+        <button class="btn ghost" id="shareBtn">复制分享</button>
       </div>
-      <div class="countdown-card">
-        <span>距离生日惊喜</span>
-        <strong id="countdownText">加载中...</strong>
-      </div>
+      <div class="countdown-card"><span>距离生日惊喜</span><strong id="countdownText">加载中...</strong></div>
     </section>
 
     <section class="phone-stage">
       <div class="phone-frame">
         <div class="phone-top"></div>
-        <div class="photo-slider" id="photoSlider">
+        <div class="photo-slider" id="photoSlider" title="点击查看大图">
           <div class="slide active" style="background-image:url('./assets/photo1.jpg')"></div>
           <div class="slide" style="background-image:url('./assets/photo2.jpg')"></div>
           <div class="slide" style="background-image:url('./assets/photo3.jpg')"></div>
         </div>
-        <div class="floating-love">❤</div>
+        <div class="floating-love" id="heartRainBtn">❤</div>
+        <div class="barrage-layer" id="barrageLayer"></div>
         <div class="wish-card">
           <p>To <span id="receiverNameMini">宝贝</span></p>
-          <h2>你永远值得被认真偏爱</h2>
+          <h2 id="dailyWish">你永远值得被认真偏爱</h2>
+          <button class="mini-btn" id="changeWishBtn">换一句祝福</button>
         </div>
       </div>
     </section>
 
+    <section class="interactive-panel glass">
+      <p class="eyebrow">Interactive Moment</p>
+      <h2>选择一个今日祝福氛围</h2>
+      <div class="mood-grid">
+        <button class="mood" data-mood="romantic">浪漫</button>
+        <button class="mood" data-mood="sweet">甜蜜</button>
+        <button class="mood" data-mood="future">未来</button>
+        <button class="mood" data-mood="surprise">惊喜</button>
+      </div>
+      <div class="wish-bottle">
+        <input id="wishInput" placeholder="写一句想飘上屏幕的祝福" />
+        <button class="btn primary" id="sendWishBtn">放入心愿瓶</button>
+      </div>
+      <div class="bottle-list" id="bottleList"></div>
+    </section>
+
     <section class="features">
-      <article class="feature glass">
-        <span>01</span>
-        <h3>专属姓名定制</h3>
-        <p>支持修改收件人、发件人、纪念日、祝福文案，适合直接接单。</p>
-      </article>
-      <article class="feature glass">
-        <span>02</span>
-        <h3>照片轮播展示</h3>
-        <p>支持情侣照、生日照、回忆相册，手机端浏览高级感更强。</p>
-      </article>
-      <article class="feature glass">
-        <span>03</span>
-        <h3>音乐与烟花互动</h3>
-        <p>用户点击播放音乐、点亮烟花，仪式感直接拉满。</p>
-      </article>
+      <article class="feature glass"><span>01</span><h3>开场解锁仪式</h3><p>客户打开链接后先进入专属惊喜页面，点击后开启音乐、动画与祝福。</p></article>
+      <article class="feature glass"><span>02</span><h3>强交互祝福系统</h3><p>支持切换祝福、发送弹幕、心愿瓶记录和隐藏爱心彩蛋。</p></article>
+      <article class="feature glass"><span>03</span><h3>商业接单结构</h3><p>姓名、照片、生日、文案集中配置，适合快速复制出不同客户版本。</p></article>
     </section>
 
     <section class="order-panel glass">
@@ -83,17 +94,8 @@
     </section>
   </main>
 
-  <div class="letter-modal" id="letterModal">
-    <div class="letter-card">
-      <button class="close" id="closeLetterBtn">×</button>
-      <p class="eyebrow">A Letter For You</p>
-      <h2>给 <span id="letterName">宝贝</span></h2>
-      <p id="letterText">
-        今天是你的生日，我想把所有温柔都写进这个网页里。愿你每一天都有热爱的事、期待的人、发光的自己。无论未来多远，我都希望你一直被爱包围。
-      </p>
-      <div class="signature">—— <span id="senderName">最爱你的人</span></div>
-    </div>
-  </div>
+  <div class="letter-modal" id="letterModal"><div class="letter-card"><button class="close" id="closeLetterBtn">×</button><p class="eyebrow">A Letter For You</p><h2>给 <span id="letterName">宝贝</span></h2><p id="letterText">今天是你的生日，我想把所有温柔都写进这个网页里。愿你每一天都有热爱的事、期待的人、发光的自己。无论未来多远，我都希望你一直被爱包围。</p><div class="signature">—— <span id="senderName">最爱你的人</span></div></div></div>
+  <div class="photo-modal" id="photoModal"><button class="close photo-close" id="closePhotoBtn">×</button><img id="photoPreview" alt="照片预览" /></div>
 
   <script src="./config.js"></script>
   <script src="./script.js"></script>
