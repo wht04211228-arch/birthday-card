@@ -34,7 +34,20 @@ function addBarrage(text){const el=document.createElement('div');el.className='b
 function heartRain(count=18){for(let i=0;i<count;i++){const h=document.createElement('div');h.className='heart-pop';h.textContent=['❤','💗','💖','✨'][Math.floor(Math.random()*4)];h.style.left=(Math.random()*innerWidth)+'px';h.style.top=(innerHeight-40-Math.random()*160)+'px';h.style.fontSize=(22+Math.random()*26)+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),1500)}}
 function sparkleAt(x,y){for(let i=0;i<18;i++){const s=document.createElement('i');s.className='sparkle';s.style.left=x+'px';s.style.top=y+'px';s.style.setProperty('--x',(Math.cos(i)*80*Math.random())+'px');s.style.setProperty('--y',(Math.sin(i)*80*Math.random())+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),900)}}
 function playVoice(){const audio=$('#voiceAudio');const bg=$('#bgMusic');if(!audio)return Promise.resolve();if(!bg.paused) bg.volume=.25;return audio.play().then(()=>{toast('正在播放真人录音');$('#playVoiceBtn').textContent='暂停录音';audio.onended=()=>{if(bg)bg.volume=1;$('#playVoiceBtn').textContent='播放真人录音'};}).catch(()=>{toast('请将 voice.mp3 放入 assets 文件夹，或先本地上传试听');});}
-function openGift(){const box=$('#giftBox');box.classList.add('opened');launchFireworks();heartRain(26);setTimeout(()=>playVoice(),450);toast('礼物盒已打开');}
+function openGift(){
+  const box=$('#giftBox');
+  if(box.dataset.opened==='true') return;
+  box.dataset.opened='true';
+  box.classList.add('opened');
+  document.body.classList.add('gift-transitioning');
+  launchFireworks();
+  heartRain(32);
+  setTimeout(()=>playVoice(),350);
+  toast('礼物盒已打开，正在进入惊喜页面');
+  const url = cfg.giftRedirectUrl || './surprise.html';
+  const delay = Number(cfg.giftRedirectDelay || 2300);
+  setTimeout(()=>{ window.location.href = url; }, delay);
+}
 function interactions(){
   $('#unlockBtn').onclick=()=>{unlocked=true;$('#unlockScreen').classList.add('hide');playMusic();launchFireworks();heartRain(22);setTimeout(()=>$('#unlockScreen').remove(),800)};
   $('#openLetterBtn').onclick=()=>{$('#letterModal').classList.add('show');heartRain(10)};

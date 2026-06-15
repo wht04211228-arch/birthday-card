@@ -57,3 +57,16 @@ card_frontend/
 ```
 
 `music.mp3` 和 `voice.mp3` 可以没有，但没有对应文件时播放按钮不会有声音。
+
+
+## 3D礼物盒跳转版
+
+本版本已将礼物盒改为“开箱动画 → 自动跳转到另一个网页”的效果。
+
+- 首页：`index.html`
+- 礼物盒打开后的惊喜页：`surprise.html`
+- 修改跳转地址：打开 `config.js`，修改 `giftRedirectUrl`
+- 修改跳转等待时间：打开 `config.js`，修改 `giftRedirectDelay`，单位为毫秒
+- 真人录音：把录音命名为 `voice.mp3`，放入 `assets` 文件夹
+
+上线到 Vercel / GitHub Pages 时，保持 `index.html`、`surprise.html`、`config.js`、`style.css`、`script.js` 和 `assets` 在同一项目目录即可。
