@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>心动生日电子贺卡｜商业交互版</title>
-  <meta name="description" content="商业级动态交互电子生日贺卡，支持开场解锁、照片轮播、音乐、烟花、弹幕、心愿瓶、情书和分享。" />
+  <title>心动生日电子贺卡｜AI + 3D礼物盒商业版</title>
+  <meta name="description" content="商业级动态交互电子生日贺卡，支持AI情书、AI祝福语、AI语音朗读、3D礼物盒、开场解锁、照片轮播、音乐、烟花、弹幕、心愿瓶和分享。" />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
@@ -15,23 +15,23 @@
     <div class="unlock-card glass">
       <div class="badge">Private Gift · Tap To Unlock</div>
       <h1>有一份专属惊喜<br>正在等你打开</h1>
-      <p>建议戴上耳机，点击下方按钮开始仪式感。</p>
+      <p>建议戴上耳机，点击下方按钮开启音乐、烟花和 3D 礼物盒。</p>
       <button class="btn primary" id="unlockBtn">开启生日惊喜</button>
     </div>
   </div>
 
   <div class="toast" id="toast">已复制分享文案</div>
-
   <div class="audio-fab" id="audioBtn" title="播放音乐"><span>♫</span></div>
   <audio id="bgMusic" loop preload="metadata"><source src="./assets/music.mp3" type="audio/mpeg" /></audio>
 
   <main class="page-shell" id="mainPage">
     <section class="hero glass">
-      <div class="badge">Premium Interactive Birthday Card · 2026</div>
+      <div class="badge">Premium AI Interactive Birthday Card · 2026</div>
       <h1><span id="receiverName">亲爱的宝贝</span><br />生日快乐</h1>
       <p class="subtitle">愿今天所有浪漫、好运和温柔，都奔向你。</p>
       <div class="hero-actions">
-        <button class="btn primary" id="openLetterBtn">打开专属情书</button>
+        <button class="btn primary" id="openGiftBtn">打开3D礼物盒</button>
+        <button class="btn ghost" id="openLetterBtn">打开专属情书</button>
         <button class="btn ghost" id="fireworkBtn">点亮烟花</button>
         <button class="btn ghost" id="shareBtn">复制分享</button>
       </div>
@@ -56,6 +56,55 @@
       </div>
     </section>
 
+    <section class="gift-panel glass" id="giftPanel">
+      <div class="gift-copy">
+        <p class="eyebrow">3D Gift Box</p>
+        <h2>点击礼物盒，打开隐藏祝福</h2>
+        <p>商业卖点：客户打开专属链接后，可以亲手拆开礼物盒，触发烟花、爱心雨、隐藏情话和 AI 语音祝福。</p>
+        <div class="gift-actions">
+          <button class="btn primary" id="giftOpenBtn">拆开礼物</button>
+          <button class="btn ghost" id="giftResetBtn">重新包装</button>
+        </div>
+      </div>
+      <div class="gift-stage" id="giftStage" aria-label="3D礼物盒">
+        <div class="gift-scene">
+          <div class="gift-box" id="giftBox">
+            <div class="box-lid"><span></span></div>
+            <div class="box-body"><span></span></div>
+            <div class="ribbon ribbon-v"></div>
+            <div class="ribbon ribbon-h"></div>
+            <div class="bow bow-left"></div>
+            <div class="bow bow-right"></div>
+            <div class="gift-surprise" id="giftSurprise">生日快乐<br><small>愿你永远被爱包围</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ai-panel glass">
+      <p class="eyebrow">AI Blessing Studio</p>
+      <h2>AI 生成专属祝福 / 情书 / 语音</h2>
+      <div class="ai-grid">
+        <input id="aiName" placeholder="收件人姓名，例如：善祯" />
+        <input id="aiRelation" placeholder="关系，例如：女朋友 / 朋友 / 家人" />
+        <input id="aiMemory" placeholder="共同回忆，例如：一起看海、认识三年" />
+        <select id="aiTone">
+          <option value="romantic">浪漫高级</option>
+          <option value="sweet">甜蜜可爱</option>
+          <option value="touching">感动走心</option>
+          <option value="luxury">商业高级感</option>
+        </select>
+      </div>
+      <div class="ai-actions">
+        <button class="btn primary" id="aiWishBtn">AI生成祝福</button>
+        <button class="btn ghost" id="aiLetterBtn">AI生成情书</button>
+        <button class="btn ghost" id="aiRewriteBtn">AI改写更高级</button>
+        <button class="btn ghost" id="aiSpeakBtn">AI语音朗读</button>
+      </div>
+      <textarea id="aiOutput" class="ai-output" placeholder="AI生成结果会出现在这里，可直接复制给客户或放进贺卡。"></textarea>
+      <p class="ai-note">当前为前端本地 AI 模拟版，可直接演示售卖；后续接 OpenAI/通义/智谱 API 时，只需把 script.js 里的 generateLocalAI() 替换为后端接口。</p>
+    </section>
+
     <section class="interactive-panel glass">
       <p class="eyebrow">Interactive Moment</p>
       <h2>选择一个今日祝福氛围</h2>
@@ -73,8 +122,8 @@
     </section>
 
     <section class="features">
-      <article class="feature glass"><span>01</span><h3>开场解锁仪式</h3><p>客户打开链接后先进入专属惊喜页面，点击后开启音乐、动画与祝福。</p></article>
-      <article class="feature glass"><span>02</span><h3>强交互祝福系统</h3><p>支持切换祝福、发送弹幕、心愿瓶记录和隐藏爱心彩蛋。</p></article>
+      <article class="feature glass"><span>01</span><h3>AI祝福生成</h3><p>根据姓名、关系和共同回忆，生成客户专属情书、祝福语和高级文案。</p></article>
+      <article class="feature glass"><span>02</span><h3>3D礼物盒开箱</h3><p>点击礼物盒触发开盖、爱心雨、烟花和隐藏祝福，提升仪式感与付费价值。</p></article>
       <article class="feature glass"><span>03</span><h3>商业接单结构</h3><p>姓名、照片、生日、文案集中配置，适合快速复制出不同客户版本。</p></article>
     </section>
 
